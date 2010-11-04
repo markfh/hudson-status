@@ -2,8 +2,18 @@
 require 'open-uri'
 require 'nokogiri'
 
-xml = `curl '#{ARGV[0]}/api/xml' --silent`.strip
-Nokogiri.parse(xml).css('hudson > job').each do |job|
+# download xml
+url = "#{ARGV[0]}/api/xml"
+xml = `curl '#{url}' --silent`.strip
+begin
+  document = Nokogiri.parse(xml)
+rescue
+  puts "Invalid XML from #{url}"
+  exit 1
+end
+
+# print project state
+document.css('hudson > job').each do |job|
   color_codes = {
     'red' => 'Failed',
     'blue' => 'Success',
