@@ -1,1 +1,5 @@
-puts 'here i am'
+#!/usr/bin/env ruby
+lib = File.expand_path('../lib', File.dirname(__FILE__))
+require "#{lib}/hudson_status"
+
+puts 'XXX'
