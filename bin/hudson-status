@@ -1,5 +1,14 @@
 #!/usr/bin/env ruby
-lib = File.expand_path('../lib', File.dirname(__FILE__))
-require "#{lib}/hudson_status"
+require 'open-uri'
+require 'nokogiri'
 
-puts 'XXX'
+xml = open("#{ARGV[0]}/api/xml".sub('file://','')).read
+Nokogiri.parse(xml).css('hudson > job').each do |job|
+  color_codes = {
+    'red' => 'Failed',
+    'blue' => 'Success'
+  }
+  name = job.css('name').first.content
+  color = color_codes[job.css('color').first.content] || 'Unknown'
+  puts "#{name}: #{color}"
+end

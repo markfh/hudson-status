@@ -8,6 +8,6 @@ Per kommandozeile soll mir der status meines Projekts gesagt werden.
 
   Beispiele:
     | Status | Ausgabe |
-    | red | Foo: Failed |
-    | green | Foo: Success |
-    | pending | Foo: Pending |
+    | red | My Project: Failed |
+    | blue | My Project: Success |
+    | foo | My Project: Unknown |
