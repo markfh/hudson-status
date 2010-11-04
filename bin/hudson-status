@@ -2,13 +2,16 @@
 require 'open-uri'
 require 'nokogiri'
 
-xml = open("#{ARGV[0]}/api/xml".sub('file://','')).read
+xml = `curl '#{ARGV[0]}/api/xml' --silent`.strip
 Nokogiri.parse(xml).css('hudson > job').each do |job|
   color_codes = {
     'red' => 'Failed',
-    'blue' => 'Success'
+    'blue' => 'Success',
+    'blue_anime' => 'Pending',
+    'red_anime' => 'Pending'
   }
   name = job.css('name').first.content
-  color = color_codes[job.css('color').first.content] || 'Unknown'
+  color = job.css('color').first.content
+  color = (color_codes[color] || "Unknown #{color}")
   puts "#{name}: #{color}"
 end

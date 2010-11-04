@@ -10,4 +10,6 @@ Per kommandozeile soll mir der status meines Projekts gesagt werden.
     | Status | Ausgabe |
     | red | My Project: Failed |
     | blue | My Project: Success |
-    | foo | My Project: Unknown |
+    | blue_anime | My Project: Pending |
+    | red_anime | My Project: Pending |
+    | foo | My Project: Unknown foo |
