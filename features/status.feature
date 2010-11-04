@@ -15,9 +15,9 @@ Beispiele:
 | foo | My Project: Unknown foo |
 
 Szenario: Server ist offline
-  Wenn der Server offline ist
-  Dann sollte die Ausagabe Invalid XML enthalten
+Wenn der Server offline ist
+Dann sollte die Ausagabe Invalid XML enthalten
 
 Szenario: Server antwortet mit nicht-hudson xml
-  Wenn der Server falsch antwortet
-  Dann sollte die Ausagabe Invalid XML enthalten
+Wenn der Server falsch antwortet
+Dann sollte die Ausagabe Invalid XML enthalten

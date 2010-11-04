@@ -21,11 +21,10 @@ class HudsonStatus
   private
 
   def self.parse_projects_from_xml(xml)
-    raise if xml.strip.empty?
     document = Nokogiri.parse(xml)
-    jobs = document.css('hudson > job')
-    raise if jobs.empty?
-    jobs
+    projects = document.css('hudson > job')
+    raise 'No projects found' if projects.empty?
+    projects
   end
 
   def self.download_xml(url)
@@ -39,6 +38,6 @@ class HudsonStatus
       'blue_anime' => 'Pending',
       'red_anime' => 'Pending'
     }
-    (color_codes[color] || "Unknown #{color}")
+    color_codes[color] || "Unknown #{color}"
   end
 end
