@@ -19,7 +19,7 @@ def write(file, content)
   File.open(file, 'w'){|f| f.write content }
 end
 
-When /^das Projekt ist (.*)$/ do |status|
+When /^das Projekt (.*) ist$/ do |status|
   write 'api/xml', xml.sub('COLOR', status)
 end
 

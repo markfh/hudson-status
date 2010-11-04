@@ -3,7 +3,7 @@ Funktionalität: Status
 Per kommandozeile soll mir der status meines Projekts gesagt werden.
 
   Szenariogrundriss: Status abfragen
-    Wenn das Projekt ist <Status>
+    Wenn das Projekt <Status> ist
     Dann sollte der status <Ausgabe> sein
 
   Beispiele:
