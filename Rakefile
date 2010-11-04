@@ -13,6 +13,7 @@ begin
     gem.email = "grosser.michael@gmail.com"
     gem.homepage = "http://github.com/grosser/#{gem.name}"
     gem.authors = ["Michael Grosser"]
+    gem.add_dependency 'nokogiri'
   end
 
   Jeweler::GemcutterTasks.new
