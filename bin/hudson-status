@@ -2,26 +2,40 @@
 require 'open-uri'
 require 'nokogiri'
 
-# download xml
-url = "#{ARGV[0]}/api/xml"
-xml = `curl '#{url}' --silent`.strip
-begin
+def parse_projects_from_xml(xml)
+  raise if xml.strip.empty?
   document = Nokogiri.parse(xml)
-rescue
-  puts "Invalid XML from #{url}"
-  exit 1
+  jobs = document.css('hudson > job')
+  raise if jobs.empty?
+  jobs
 end
 
-# print project state
-document.css('hudson > job').each do |job|
+def download_xml(url)
+  `curl '#{url}' --silent`.strip
+end
+
+def status_from_hudson_color(color)
   color_codes = {
     'red' => 'Failed',
     'blue' => 'Success',
     'blue_anime' => 'Pending',
     'red_anime' => 'Pending'
   }
-  name = job.css('name').first.content
-  color = job.css('color').first.content
-  color = (color_codes[color] || "Unknown #{color}")
-  puts "#{name}: #{color}"
+  (color_codes[color] || "Unknown #{color}")
+end
+
+url = "#{ARGV[0]}/api/xml"
+xml = download_xml(url)
+begin
+  projects = parse_projects_from_xml(xml)
+rescue
+  puts "Invalid XML from #{url}"
+  exit 0
+end
+
+projects.each do |project|
+  name = project.css('name').first.content
+  color = project.css('color').first.content
+  status = status_from_hudson_color(color)
+  puts "#{name}: #{status}"
 end

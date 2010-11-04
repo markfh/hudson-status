@@ -19,22 +19,26 @@ def write(file, content)
   File.open(file, 'w'){|f| f.write content }
 end
 
-def status
+def hudson_status
   `./bin/hudson-status file:///#{FIXTURES}`.strip
 end
 
-When /^das Projekt offline ist$/ do
+When /^der Server offline ist$/ do
   write 'api/xml', ''
 end
 
-When /^das Projekt "(.*)" ist$/ do |status|
+When /^der Server falsch antwortet$/ do
+  write 'api/xml', '<moo></moo>'
+end
+
+When /^das Projekt (.*) ist$/ do |status|
   write 'api/xml', xml.sub('COLOR', status)
 end
 
 Then /^sollte die Ausagabe (.*) sein$/ do |status|
-  status.should == status
+  hudson_status.should == status
 end
 
 Then /^sollte die Ausagabe (.*) enthalten$/ do |status|
-  status.should include(status)
+  hudson_status.should include(status)
 end
