@@ -20,7 +20,7 @@ def write(file, content)
 end
 
 def hudson_status
-  `./bin/hudson-status file:///#{FIXTURES}`.strip
+  `./bin/hudson-status file:///#{FIXTURES} 2>&1`.strip
 end
 
 When /^der Server offline ist$/ do

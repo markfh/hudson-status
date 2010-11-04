@@ -1,13 +1,6 @@
 #!/usr/bin/env ruby
 require File.expand_path('../../lib/hudson_status', __FILE__)
 
-begin
-  status = HudsonStatus.status(ARGV[0])
-rescue => error
-  puts error
-  exit 1
-end
-
-status.each do |name, status|
+HudsonStatus.status(ARGV[0]).each do |name, status|
   puts "#{name}: #{status}"
 end
